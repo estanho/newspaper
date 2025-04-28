@@ -59,8 +59,8 @@ export default function Newspaper({ slugs }: { slugs: string[] }) {
 
   if (loading) {
     return (
-      <div className="flex min-h-[40rem] items-center justify-center bg-secondary">
-        Carregando...
+      <div className="flex min-h-[40rem] min-w-[60rem] items-center justify-center bg-secondary">
+        <span className="font-text text-5xl text-primary">Carregando...</span>
       </div>
     );
   }
@@ -94,7 +94,7 @@ export default function Newspaper({ slugs }: { slugs: string[] }) {
   return (
     <>
       <div className="flex min-h-[40rem] flex-col bg-secondary shadow-2xl">
-        <div className="flex justify-between px-10 pt-10">
+        <div className="flex justify-between px-3 pt-8 md:px-11">
           <Button
             onClick={() => handleNavigation("prev")}
             disabled={!newspaper || currentIndex === 0}
@@ -119,14 +119,25 @@ export default function Newspaper({ slugs }: { slugs: string[] }) {
           height={0}
           priority
           quality={100}
+          className="w-full"
         />
 
         <div className="mb-10">
           <h1 className="text-center font-title text-5xl font-bold text-primary">
             Clipes da Semana
           </h1>
-          <div className="grid h-[448px] grid-cols-2 gap-4 p-10">
-            {/* Seus iframes vão aqui */}
+          <div className="grid h-full gap-4 p-10 md:h-[401px] md:grid-cols-2">
+            {currentPage &&
+              currentPage.clips.map((clip) => {
+                return (
+                  <iframe
+                    key={clip}
+                    src={`https://clips.twitch.tv/embed?clip=${clip}&parent=localhost`}
+                    allowFullScreen={true}
+                    className="h-full w-full"
+                  ></iframe>
+                );
+              })}
           </div>
           <Image
             src="/newspapers/separator.png"
@@ -135,10 +146,11 @@ export default function Newspaper({ slugs }: { slugs: string[] }) {
             height={0}
             priority
             quality={100}
+            className="w-full"
           />
         </div>
 
-        <div className="flex justify-between px-10 pb-10">
+        <div className="my-12 flex justify-between px-3 md:mt-0 md:px-11">
           <Button
             onClick={() => handleNavigation("prev")}
             disabled={!newspaper || currentIndex === 0}

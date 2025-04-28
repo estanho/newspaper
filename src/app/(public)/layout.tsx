@@ -8,13 +8,10 @@ export default function PublicLayout({
 }>) {
   return (
     <div className="flex h-screen flex-col">
-      <script async src="https://www.tiktok.com/embed.js"></script>
       <header>
         <Navigation />
       </header>
-      <main className="mx-auto flex max-w-[1400px] flex-1 flex-col">
-        {children}
-      </main>
+      <main className="mx-auto flex max-w-7xl flex-1 flex-col">{children}</main>
       <footer>
         <Footer />
       </footer>

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { newspaperDaysData } from "@/types/newspaper-days-schema";
-import { format } from "date-fns";
+import { format, subDays } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -22,10 +22,20 @@ export default function DatePicker({
   data: newspaperDaysData | undefined;
 }) {
   const [date, setDate] = useState<Date>();
+  const [previousDays, setPreviousDays] = useState<Date[]>([]);
 
   useEffect(() => {
-    if (!date) return;
+    if (!date) {
+      setPreviousDays([]);
+      return;
+    }
     getDate(date);
+
+    const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
+      subDays(date, i + 1)
+    );
+
+    setPreviousDays(sixDaysBefore);
   }, [getDate, date]);
 
   function isDisableDate(date: Date) {
@@ -64,6 +74,15 @@ export default function DatePicker({
           lang="pt-BR"
           locale={ptBR}
           disabled={isDisableDate}
+          modifiers={{
+            highlighted: previousDays,
+          }}
+          modifiersStyles={{
+            highlighted: {
+              backgroundColor: "rgba(66, 72, 55, 0.800)",
+              color: "rgb(235, 224, 203)",
+            },
+          }}
         />
       </PopoverContent>
     </Popover>
