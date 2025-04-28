@@ -20,7 +20,7 @@ const socialNetworks = [
   },
   {
     name: "TikTok",
-    href: "https://www.tiktok.com/@choke7_",
+    href: "https://www.tiktok.com/@choke7.clipes",
     icon: <TiktokIcon className="fill-secondary" />,
   },
   {
