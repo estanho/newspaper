@@ -1,0 +1,24 @@
+{
+  "newspaper": {
+    "slug": "1",
+    "date": "28-04-2025",
+    "pages": [
+      {
+        "id": "1",
+        "image": {
+          "enabled": true,
+          "src": "/newspapers/28-04/1.png"
+        },
+        "clips": ["CautiousNeighborlyDolphinLitFam-VeMiIlr2KRnqq98v", ""]
+      },
+      {
+        "id": "2",
+        "image": {
+          "enabled": true,
+          "src": "/newspapers/28-04/2.png"
+        },
+        "clips": ["CautiousNeighborlyDolphinLitFam-VeMiIlr2KRnqq98v", ""]
+      }
+    ]
+  }
+}
