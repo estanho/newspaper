@@ -10,7 +10,7 @@ export default function Home() {
           A sua página de notícias da AK!Choke7
         </p>
         <span className="font-text text-lg">
-          Ultimá atualização: 28/04/2025
+          Última atualização: 28/04/2025
         </span>
       </div>
     </>
