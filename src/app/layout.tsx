@@ -19,7 +19,7 @@ const patrick = Patrick_Hand({
 });
 
 export const metadata: Metadata = {
-  title: "Choke7",
+  title: "Saponíus",
   description: "Jornal de notícias da Choke7",
 };
 
