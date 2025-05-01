@@ -1,6 +1,6 @@
 "use client";
 
-import DataPicker from "@/components/commons/data-picker";
+import DataPicker from "@/components/commons/search/data-picker";
 import { Button } from "@/components/ui/button";
 import { fetchNewspaperDays } from "@/services/fetch-data";
 import { newspaperDaysData } from "@/types/newspaper-days-schema";
@@ -28,7 +28,11 @@ export default function Search() {
     router.push(`/edition/${slug}/1`);
   }
 
-  function handleDate(date: Date) {
+  function handleDate(date: Date | undefined) {
+    if (!date) {
+      setSlug(undefined);
+      return;
+    }
     const dateFound = newspaperDays?.find((item) => isEqual(date, item.date));
     if (!dateFound) return;
     setSlug(dateFound?.slug);

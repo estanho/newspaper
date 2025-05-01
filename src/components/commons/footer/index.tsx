@@ -5,15 +5,15 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div aria-label="Rodapé" className="mt-12 bg-primary px-4 py-6">
-      <div className="flex flex-wrap items-center justify-center text-center">
-        <p className="font-text text-xl tracking-wide text-secondary">
+    <div aria-label="Rodapé" className="bg-primary px-4 py-6">
+      <div className="flex flex-wrap justify-center text-center">
+        <p className="text-lg text-primary-foreground">
           © {currentYear} Mantido por{" "}
           <Link
             href="https://x.com/oTutti_"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline transition-colors hover:text-opacity-80"
+            className="underline transition-colors hover:text-muted-foreground"
             aria-label="oTutti em X"
           >
             oTutti
@@ -23,7 +23,7 @@ export default function Footer() {
             href="https://x.com/NVAMBFR"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline transition-colors hover:text-opacity-80"
+            className="underline transition-colors hover:text-muted-foreground"
             aria-label="Nalbert em X"
           >
             Nalbert
@@ -33,7 +33,7 @@ export default function Footer() {
             href="https://pedrohrg.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 underline transition-colors hover:text-opacity-80"
+            className="inline-flex items-center gap-1 underline transition-colors hover:text-muted-foreground"
             aria-label="Site do Estanho"
           >
             Estanho

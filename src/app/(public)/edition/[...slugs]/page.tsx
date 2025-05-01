@@ -1,5 +1,4 @@
-import Newspaper from "@/components/newspaper";
-import Search from "@/components/search";
+import Newspaper from "@/components/commons/newspaper";
 import { fetchNewspaperDays } from "@/services/fetch-data";
 import { newspaperDaysData } from "@/types/newspaper-days-schema";
 import { redirect } from "next/navigation";
@@ -43,7 +42,6 @@ export default async function Edition({
 
   return (
     <>
-      <Search />
       <Newspaper slugs={slugs} />
     </>
   );

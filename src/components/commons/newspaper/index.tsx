@@ -132,7 +132,7 @@ export default function Newspaper({ slugs }: { slugs: string[] }) {
                 return (
                   <iframe
                     key={clip}
-                    src={`https://clips.twitch.tv/embed?clip=${clip}&parent=saponius.vercel.app`}
+                    src={`https://clips.twitch.tv/embed?clip=${clip}&parent=${process.env.APP_BASE_URL}`}
                     allowFullScreen={true}
                     className="h-full w-full"
                   ></iframe>

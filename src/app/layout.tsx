@@ -20,7 +20,7 @@ const patrick = Patrick_Hand({
 
 export const metadata: Metadata = {
   title: "Saponíus",
-  description: "Jornal de notícias da Choke7",
+  description: "A sua página de notícias da AK!Choke7",
 };
 
 export default function RootLayout({

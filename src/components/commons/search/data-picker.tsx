@@ -18,7 +18,7 @@ export default function DatePicker({
   getDate,
   data,
 }: {
-  getDate: (slug: Date) => void;
+  getDate: (slug: Date | undefined) => void;
   data: newspaperDaysData | undefined;
 }) {
   const [date, setDate] = useState<Date>();
@@ -27,8 +27,10 @@ export default function DatePicker({
   useEffect(() => {
     if (!date) {
       setPreviousDays([]);
+      getDate(undefined);
       return;
     }
+
     getDate(date);
 
     const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
