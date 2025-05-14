@@ -30,6 +30,8 @@ export default function DatePicker({
 
   const { toast } = useToast();
 
+  console.log(newspaperDays);
+
   useEffect(() => {
     if (!newspaperDays) {
       toast({
