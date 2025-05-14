@@ -1,3 +1,5 @@
+import { parse } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { z } from "zod";
 
 export const NewspaperDaysSchema = z.array(
@@ -5,8 +7,7 @@ export const NewspaperDaysSchema = z.array(
     id: z.coerce.number(),
     slug: z.string(),
     date: z.string().transform((dateString) => {
-      const [day_num, month, year] = dateString.split("-");
-      return new Date(Number(year), Number(month) - 1, Number(day_num));
+      return parse(dateString, "dd-MM-yyyy", new Date(), { locale: ptBR });
     }),
   })
 );
