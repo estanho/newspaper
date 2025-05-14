@@ -1,6 +1,3 @@
-import { parse } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
-import { ptBR } from "date-fns/locale";
 import { z } from "zod";
 
 export const NewspaperDaysSchema = z.array(
@@ -8,11 +5,8 @@ export const NewspaperDaysSchema = z.array(
     id: z.coerce.number(),
     slug: z.string(),
     date: z.string().transform((dateString) => {
-      const dateParsed = parse(dateString, "dd-MM-yyyy", new Date(0), {
-        locale: ptBR,
-      });
-
-      return toZonedTime(dateParsed, "America/Sao_Paulo");
+      const [day_num, month, year] = dateString.split("-").map(Number);
+      return new Date(Date.UTC(year, month - 1, day_num, 3, 0, 0));
     }),
   })
 );
