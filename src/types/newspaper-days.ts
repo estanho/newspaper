@@ -7,7 +7,9 @@ export const NewspaperDaysSchema = z.array(
     id: z.coerce.number(),
     slug: z.string(),
     date: z.string().transform((dateString) => {
-      return parse(dateString, "dd-MM-yyyy", new Date(), { locale: ptBR });
+      return parse(dateString, "dd-MM-yyyy", new Date(), {
+        locale: ptBR,
+      });
     }),
   })
 );
