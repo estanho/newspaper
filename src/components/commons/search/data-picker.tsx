@@ -92,12 +92,7 @@ export default function DatePicker({
   function isDisableDate(date: Date) {
     if (!newspaperDays) return true;
 
-    return !newspaperDays.some(
-      (dayEnabled) =>
-        dayEnabled.date.getDate() === date.getDate() &&
-        dayEnabled.date.getMonth() === date.getMonth() &&
-        dayEnabled.date.getFullYear() === date.getFullYear()
-    );
+    return !newspaperDays.some((dayEnabled) => isEqual(dayEnabled.date, date));
   }
 
   return (
