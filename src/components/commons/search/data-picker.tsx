@@ -7,41 +7,92 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { newspaperDaysData } from "@/types/newspaper-days-schema";
-import { format, subDays } from "date-fns";
+import { NewspaperDaysType } from "@/types/newspaper-days";
+import { format, isEqual, subDays } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function DatePicker({
-  getDate,
-  data,
+  newspaperDays,
 }: {
-  getDate: (slug: Date | undefined) => void;
-  data: newspaperDaysData | undefined;
+  newspaperDays: NewspaperDaysType | null;
 }) {
   const [date, setDate] = useState<Date>();
   const [previousDays, setPreviousDays] = useState<Date[]>([]);
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const { toast } = useToast();
+
   useEffect(() => {
-    if (!date) {
-      setPreviousDays([]);
-      getDate(undefined);
+    if (!newspaperDays) {
+      toast({
+        title: "Ocorreu uma erro ao carregar os dias disponíveis",
+        description: "Aguarde um momento e tente novamente.",
+        variant: "destructive",
+      });
       return;
     }
 
-    getDate(date);
+    const edition = searchParams.get("edition");
 
-    const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
-      subDays(date, i + 1)
+    if (edition) {
+      const editionSelected = newspaperDays.find((day) => day.slug === edition);
+      if (editionSelected) {
+        setDate(editionSelected.date);
+        const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
+          subDays(editionSelected.date, i + 1)
+        );
+        setPreviousDays(sixDaysBefore);
+        return;
+      }
+
+      setDate(undefined);
+      setPreviousDays([]);
+    } else {
+      setDate(undefined);
+      setPreviousDays([]);
+    }
+  }, [newspaperDays, searchParams, pathname, toast]);
+
+  function handleSelectDate(selected: Date | undefined) {
+    if (!newspaperDays) return;
+
+    if (!selected || (date && isEqual(date, selected))) {
+      setDate(undefined);
+      setPreviousDays([]);
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.delete("edition");
+      router.push(`${pathname}?${newParams.toString()}`);
+      return;
+    }
+
+    const dateMatched = newspaperDays.find((day) =>
+      isEqual(day.date, selected)
     );
 
-    setPreviousDays(sixDaysBefore);
-  }, [getDate, date]);
+    if (dateMatched) {
+      setDate(selected);
+      const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
+        subDays(selected, i + 1)
+      );
+      setPreviousDays(sixDaysBefore);
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set("edition", dateMatched.slug);
+      router.push(`${pathname}?${newParams.toString()}`);
+    }
+  }
 
   function isDisableDate(date: Date) {
-    return !data?.some(
+    if (!newspaperDays) return true;
+
+    return !newspaperDays.some(
       (dayEnabled) =>
         dayEnabled.date.getDate() === date.getDate() &&
         dayEnabled.date.getMonth() === date.getMonth() &&
@@ -71,7 +122,7 @@ export default function DatePicker({
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleSelectDate}
           initialFocus
           lang="pt-BR"
           locale={ptBR}

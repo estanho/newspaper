@@ -12,10 +12,12 @@ export default function PublicLayout({
       <header>
         <Navigation />
       </header>
+
       <main className="mx-auto flex max-w-7xl flex-1 flex-col">
         <Search />
         {children}
       </main>
+
       <footer>
         <Footer />
       </footer>

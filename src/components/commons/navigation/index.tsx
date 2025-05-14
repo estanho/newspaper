@@ -4,12 +4,14 @@ import BtnSocialNetwork from "@/components/commons/navigation/btn-social-network
 import MenuIcon from "@/components/icons/menu-icon";
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,8 +26,23 @@ export default function Navigation() {
     setHasMounted(true);
   }, []);
 
+  function handleClick() {
+    setOpen(false);
+  }
+
   if (!hasMounted) {
-    return <div className="h-16 bg-primary p-3"></div>;
+    return (
+      <div className="grid grid-cols-2 items-center justify-center bg-primary p-3">
+        <div className="flex justify-start gap-3">
+          <Skeleton className="h-[30px] w-[140px] rounded-md bg-secondary/10" />
+        </div>
+        <div className="flex justify-end">
+          <span className="font-title text-4xl text-primary-foreground">
+            <Link href="/">Saponíus</Link>
+          </span>
+        </div>
+      </div>
+    );
   }
 
   if (isDesktop) {
@@ -44,49 +61,54 @@ export default function Navigation() {
   }
 
   return (
-    <>
-      <div className="grid grid-cols-2 items-center justify-center bg-primary p-3">
-        <div className="flex justify-start">
-          <Button size="icon" onClick={() => setOpen(!open)}>
-            <span className="fill-primary-foreground">
-              <MenuIcon />
-            </span>
-          </Button>
-        </div>
-        <div className="flex justify-end">
-          <Link href="/">
-            <span className="font-title text-4xl text-primary-foreground">
-              Saponíus
-            </span>
-          </Link>
-        </div>
+    <div className="grid grid-cols-2 items-center justify-center bg-primary p-3">
+      <div className="flex justify-start">
+        <Drawer open={open} onOpenChange={setOpen} autoFocus={open}>
+          <DrawerTrigger>
+            <Button
+              aria-label="Abrir menu"
+              size="icon"
+              className="shadow-none"
+              onClick={() => setOpen(!open)}
+              asChild
+            >
+              <div className="fill-primary-foreground">
+                <MenuIcon />
+              </div>
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent
+            aria-label="Menu com as Redes Sociais"
+            className="text-pretty font-text tracking-wide"
+          >
+            <DrawerHeader>
+              <DrawerTitle className="tracking-wide">Redes Sociais</DrawerTitle>
+              <DrawerDescription>
+                Siga a Choke7 nas Redes Sociais!
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="mb-8">
+              <BtnSocialNetwork handleClick={handleClick} />
+            </div>
+            <div className="fixed bottom-0 left-3">
+              <Image
+                src="/emotes/choke7privada.gif"
+                alt="Choke7Privada"
+                width={56}
+                height={56}
+                unoptimized
+              />
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
-
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent
-          side="left"
-          aria-label="Menu com as Redes Sociais"
-          className="w-[70%]"
-        >
-          <SheetHeader className="mt-12">
-            <SheetTitle>Redes Sociais</SheetTitle>
-            <SheetDescription>
-              Siga a Choke7 nas Redes Sociais!
-            </SheetDescription>
-          </SheetHeader>
-          <div className="mt-8">
-            <BtnSocialNetwork />
-          </div>
-          <div className="fixed bottom-0">
-            <Image
-              src="/emotes/choke7privada.gif"
-              alt="Choke7Privada"
-              width={56}
-              height={56}
-            />
-          </div>
-        </SheetContent>
-      </Sheet>
-    </>
+      <div className="flex justify-end">
+        <Link href="/">
+          <span className="font-title text-4xl text-primary-foreground">
+            Saponíus
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 }

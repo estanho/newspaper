@@ -1,0 +1,34 @@
+{
+  "newspaper_days": [
+    {
+      "id": 1,
+      "slug": "1",
+      "date": "28-04-2025"
+    }
+  ],
+  "newspaper": [
+    {
+      "id": 1,
+      "slug": "1",
+      "date": "28-04-2025",
+      "pages": [
+        {
+          "id": 1,
+          "image": {
+            "enabled": true,
+            "src": "/newspapers/28-04/1.png"
+          },
+          "clips": ["CautiousNeighborlyDolphinLitFam-VeMiIlr2KRnqq98v", "BusyFancyLEDOpieOP-PbsTnTiIqomoQZdi"]
+        },
+        {
+          "id": 2,
+          "image": {
+            "enabled": true,
+            "src": "/newspapers/28-04/2.png"
+          },
+          "clips": ["SmoothUglyBadgerFloof-KzYhUm8IIU67iBzh", "VictoriousAbrasiveGuanacoThunBeast-7PHF_WuaeJ-Tm0WG"]
+        }
+      ]
+    }
+  ]
+}

@@ -45,7 +45,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-foreground text-foreground;
     @apply bg-[url("/background.png")];
   }
 }

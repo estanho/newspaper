@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "@/styles/globals.css";
 
+import { Toaster } from "@/components/ui/toaster";
 import { Patrick_Hand } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
       </head>
       <body className={`${patrick.variable} ${bobby.variable} antialiased`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );
