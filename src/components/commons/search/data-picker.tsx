@@ -9,8 +9,13 @@ import {
 } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { NewspaperDaysType } from "@/types/newspaper-days";
-import { format, isEqual, subDays } from "date-fns";
+import {
+  DISPLAY_TIMEZONE,
+  isSameCalendarDay,
+  NewspaperDaysType,
+  prepareCalendarDate,
+} from "@/types/newspaper-days";
+import { format, subDays } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -30,7 +35,9 @@ export default function DatePicker({
 
   const { toast } = useToast();
 
-  console.log(newspaperDays);
+  const formatDisplayDate = (dateToFormat: Date) => {
+    return format(dateToFormat, "PPP", { locale: ptBR });
+  };
 
   useEffect(() => {
     if (!newspaperDays) {
@@ -48,13 +55,15 @@ export default function DatePicker({
       const editionSelected = newspaperDays.find((day) => day.slug === edition);
       if (editionSelected) {
         setDate(editionSelected.date);
-        const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
-          subDays(editionSelected.date, i + 1)
-        );
+
+        const sixDaysBefore = Array.from({ length: 6 }, (_, i) => {
+          const previousDate = subDays(editionSelected.date, i + 1);
+          return prepareCalendarDate(previousDate);
+        });
+
         setPreviousDays(sixDaysBefore);
         return;
       }
-
       setDate(undefined);
       setPreviousDays([]);
     } else {
@@ -66,7 +75,7 @@ export default function DatePicker({
   function handleSelectDate(selected: Date | undefined) {
     if (!newspaperDays) return;
 
-    if (!selected || (date && isEqual(date, selected))) {
+    if (!selected || (date && isSameCalendarDay(date, selected))) {
       setDate(undefined);
       setPreviousDays([]);
       const newParams = new URLSearchParams(searchParams.toString());
@@ -75,26 +84,36 @@ export default function DatePicker({
       return;
     }
 
+    const preparedSelected = prepareCalendarDate(selected);
+
     const dateMatched = newspaperDays.find((day) =>
-      isEqual(day.date, selected)
+      isSameCalendarDay(day.date, preparedSelected)
     );
 
     if (dateMatched) {
-      setDate(selected);
-      const sixDaysBefore = Array.from({ length: 6 }, (_, i) =>
-        subDays(selected, i + 1)
-      );
+      setDate(dateMatched.date);
+
+      const sixDaysBefore = Array.from({ length: 6 }, (_, i) => {
+        const previousDate = subDays(dateMatched.date, i + 1);
+        return prepareCalendarDate(previousDate);
+      });
+
       setPreviousDays(sixDaysBefore);
+
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.set("edition", dateMatched.slug);
       router.push(`${pathname}?${newParams.toString()}`);
     }
   }
 
-  function isDisableDate(date: Date) {
+  function isDisableDate(calendarDate: Date) {
     if (!newspaperDays) return true;
 
-    return !newspaperDays.some((dayEnabled) => isEqual(dayEnabled.date, date));
+    const preparedDate = prepareCalendarDate(calendarDate);
+
+    return !newspaperDays.some((dayEnabled) =>
+      isSameCalendarDay(dayEnabled.date, preparedDate)
+    );
   }
 
   return (
@@ -108,11 +127,7 @@ export default function DatePicker({
           )}
         >
           <CalendarIcon />
-          {date ? (
-            format(date, "PPP", { locale: ptBR })
-          ) : (
-            <span>Selecione a data</span>
-          )}
+          {date ? formatDisplayDate(date) : <span>Selecione a data</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto border-2 border-primary bg-background p-2 font-text text-primary">
@@ -134,6 +149,9 @@ export default function DatePicker({
             },
           }}
         />
+        <div className="mb-2 text-center text-xs text-muted-foreground">
+          Fuso horário: {DISPLAY_TIMEZONE}
+        </div>
       </PopoverContent>
     </Popover>
   );
