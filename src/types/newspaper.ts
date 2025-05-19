@@ -12,6 +12,8 @@ export const NewspaperSchema = z.object({
         src: z.string(),
       }),
       clips: z.array(z.string()),
+      tweets: z.array(z.string()),
+      links: z.array(z.object({ id: z.coerce.number(), position: z.string() })),
     })
   ),
 });
