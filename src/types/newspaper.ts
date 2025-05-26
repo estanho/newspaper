@@ -8,12 +8,16 @@ export const NewspaperSchema = z.object({
     z.object({
       id: z.coerce.number(),
       image: z.object({
-        enabled: z.boolean(),
         src: z.string(),
       }),
       clips: z.array(z.string()),
       tweets: z.array(z.string()),
-      links: z.array(z.object({ id: z.coerce.number(), position: z.string() })),
+      links: z.array(
+        z.object({
+          link: z.string(),
+          position: z.string(),
+        })
+      ),
     })
   ),
 });

@@ -1,24 +1,59 @@
 {
-  "newspaper": {
-    "slug": "1",
-    "date": "28-04-2025",
-    "pages": [
-      {
-        "id": "1",
-        "image": {
-          "enabled": true,
-          "src": "/newspapers/28-04/1.png"
+  "newspapers": [
+    {
+      "id": 1,
+      "slug": "1",
+      "date": "28-04-2025",
+      "pages": [
+        {
+          "id": 1,
+          "image": {
+            "src": "/newspapers/28-04/1.png"
+          },
+          "clips": ["CautiousNeighborlyDolphinLitFam-VeMiIlr2KRnqq98v", "BusyFancyLEDOpieOP-PbsTnTiIqomoQZdi"],
+          "tweets": [],
+          "links": []
         },
-        "clips": ["CautiousNeighborlyDolphinLitFam-VeMiIlr2KRnqq98v", "BusyFancyLEDOpieOP-PbsTnTiIqomoQZdi"]
-      },
-      {
-        "id": "2",
-        "image": {
-          "enabled": true,
-          "src": "/newspapers/28-04/2.png"
+        {
+          "id": 2,
+          "image": {
+            "src": "/newspapers/28-04/2.png"
+          },
+          "clips": ["SmoothUglyBadgerFloof-KzYhUm8IIU67iBzh", "VictoriousAbrasiveGuanacoThunBeast-7PHF_WuaeJ-Tm0WG"],
+          "tweets": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "2",
+      "date": "19-05-2025",
+      "pages": [
+        {
+          "id": 1,
+          "image": {
+            "src": "/newspapers/19-05/1.png"
+          },
+          "clips": [],
+          "tweets": ["1922062493926506734", "1922112555503300725"],
+          "links": [
+            {
+              "link": "https://www.youtube.com/watch?v=4ZF1GIoopEc",
+              "position": ""
+            }
+          ]
         },
-        "clips": ["SmoothUglyBadgerFloof-KzYhUm8IIU67iBzh", "VictoriousAbrasiveGuanacoThunBeast-7PHF_WuaeJ-Tm0WG"]
-      }
-    ]
-  }
+        {
+          "id": 2,
+          "image": {
+            "src": "/newspapers/19-05/2.png"
+          },
+          "clips": [],
+          "tweets": ["1923032233255846214", "1923208149298790756"],
+          "links": []
+        }
+      ]
+    }
+  ]
 }

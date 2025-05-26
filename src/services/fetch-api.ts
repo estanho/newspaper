@@ -3,7 +3,8 @@
 import { NewspaperSchema } from "@/types/newspaper";
 import { NewspaperDaysSchema } from "@/types/newspaper-days";
 
-import db from "../../db.json";
+import { newspaperDays } from "../json/newspaper-days.json";
+import { newspapers } from "../json/newspaper.json";
 
 export async function fetchNewspaperDays() {
   /*
@@ -20,7 +21,7 @@ export async function fetchNewspaperDays() {
     });
   */
 
-  const response = NewspaperDaysSchema.parse(db.newspaper_days);
+  const response = NewspaperDaysSchema.parse(newspaperDays);
 
   return {
     status: response !== null ? 200 : 400,
@@ -44,7 +45,7 @@ export async function fetchNewspaperBySlug(slug: string) {
   */
 
   const { data } = NewspaperSchema.safeParse(
-    db.newspaper.find((newspaper) => newspaper.slug === slug)
+    newspapers.find((newspaper) => newspaper.slug === slug)
   );
 
   const response = data === undefined ? null : data;
