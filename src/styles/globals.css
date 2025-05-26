@@ -49,6 +49,10 @@
     @apply bg-[url("/background.png")];
   }
 
+  .tweet > div.react-tweet-theme > article > div:nth-child(3) > div > div div:nth-child(3) {
+    height: auto;
+  }
+
   .tweet > div.react-tweet-theme{
     max-width: 100%;
     max-height: 100%;
