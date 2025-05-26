@@ -15,6 +15,11 @@ export default function Pagination({
 }) {
   const isDesktop = useMediaQuery("(min-width: 600px)");
 
+  function scrollToTop() {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   function PaginationPages() {
     return newspaper.pages.map((item) => (
       <li key={item.id}>
@@ -27,6 +32,7 @@ export default function Pagination({
           <Link
             href={`/newspaper/${newspaper.slug}/?edition=${newspaper.slug}&page=${item.id}`}
             className="flex items-center"
+            onClick={scrollToTop}
           >
             {item.id}
           </Link>
@@ -47,6 +53,7 @@ export default function Pagination({
           <Button className="flex items-center gap-1" asChild>
             <Link
               href={`/newspaper/${newspaper.slug}/?edition=${newspaper.slug}&page=${page - 1}`}
+              onClick={scrollToTop}
             >
               <ChevronLeft className="h-4 w-4" />
               Anterior
@@ -75,6 +82,7 @@ export default function Pagination({
           <Button className="flex items-center gap-1" asChild>
             <Link
               href={`/newspaper/${newspaper.slug}/?edition=${newspaper.slug}&page=${page + 1}`}
+              onClick={scrollToTop}
             >
               Próxima
               <ChevronRight className="h-4 w-4" />

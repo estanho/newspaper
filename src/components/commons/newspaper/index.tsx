@@ -50,8 +50,12 @@ export default function Newspaper({
             <Tweets tweets={newspaper.pages[page - 1].tweets} />
           )}
         </div>
-
-        <Separator />
+        {newspaper.pages[page - 1].clips.length > 0 ||
+        newspaper.pages[page - 1].tweets.length > 0 ? (
+          <Separator />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="mt-2">
         <Pagination newspaper={newspaper} page={page} />

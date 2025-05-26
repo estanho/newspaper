@@ -8,9 +8,9 @@ export default function Home() {
         <h1 className="font-title text-6xl">Saponíus</h1>
         <p className="pt-4 text-3xl">A sua página de notícias da AK!Choke7</p>
         <div className="mt-8 flex items-center justify-center gap-4 rounded bg-primary/10 p-2">
-          <span className="text-xl">Último jornal: 19/05/2025</span>
+          <span className="text-xl">Último jornal: 26/05/2025</span>
           <Button asChild>
-            <Link href="/newspaper/2?page=1">Acessar</Link>
+            <Link href="/newspaper/3?page=1">Acessar</Link>
           </Button>
         </div>
       </div>

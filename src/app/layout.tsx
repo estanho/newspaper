@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/next";
 import { Patrick_Hand } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body className={`${patrick.variable} ${bobby.variable} antialiased`}>
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
